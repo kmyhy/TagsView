@@ -134,12 +134,15 @@
     }
     
     _intrinsicFrame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetMaxY(lastFrame)+_borderInsets.top);
+    
+    self.frame = _intrinsicFrame;
+    
+    [self.superview needsUpdateConstraints];
 }
 // MARK: - Getter/setter
 -(void)setTags:(NSArray<NSString *> *)tags{
     _tags = tags;
     [self layoutTagFrames];
-    [self setNeedsLayout];
 }
 @end
 
