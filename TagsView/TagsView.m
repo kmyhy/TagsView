@@ -31,6 +31,16 @@
     return self;
 }
 -(void)setup{
+    self.title = @"标签";
+    self.titleColor = [UIColor colorWithRed:0x33/255.0 green:0x33/255.0 blue:0x33/255.0 alpha:1];
+    self.titleInsets = UIEdgeInsetsMake(10, 15, 0, 0);// 只用到 top，left
+    
+    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_titleInsets.left, _titleInsets.top, self.frame.size.width-_titleInsets.left*2, 17)];
+    titleLabel.textColor= _titleColor;
+    titleLabel.text = _title;
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    [self addSubview:titleLabel];
+    
     self.tags = @[@"语音通知语音",@"通知语音通知语",@"音通知语音通知",@"文字通知"];
     self.textColor = [UIColor colorWithRed:0x99/255.0 green:0x99/255.0 blue:0x99/255.0 alpha:1];
     self.borderColor = [UIColor colorWithRed:0xcc/255.0 green:0xcc/255.0 blue:0xcc/255.0 alpha:1];
@@ -39,7 +49,7 @@
     
     self.textInsets = UIEdgeInsetsMake(5, 6.5, 5, 6.5);
     
-    self.borderInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+    self.borderInsets = UIEdgeInsetsMake(15, 10, 0, 0);// 只用到 top，left
     
     self.cornerRadius = 4/[UIScreen mainScreen].scale;
     
@@ -48,7 +58,19 @@
     _showDebugBorder = NO;
     
     [self layoutTagFrames];
+    
+    self.backgroundColor = [UIColor clearColor];
 }
+// MARK: - Setter
+-(void)setTitle:(NSString *)title{
+    _title = title;
+    titleLabel.text = title;
+}
+-(void)setTitleColor:(UIColor *)titleColor{
+    _titleColor = titleColor;
+    titleLabel.textColor = titleColor;
+}
+
 // MARK: - Draw work
 - (void)drawRect:(CGRect)rect {
     
@@ -85,8 +107,8 @@
 }
 -(void)drawDebugBorder{
     // 绘制调试边框
-    
-    UIBezierPath* boxPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, _intrinsicFrame.size.width, _intrinsicFrame.size.height) cornerRadius:_cornerRadius];
+    CGFloat dY = CGRectGetMaxY(titleLabel.frame);
+    UIBezierPath* boxPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, dY, _intrinsicFrame.size.width, _intrinsicFrame.size.height-dY) cornerRadius:_cornerRadius];
     
     [_borderColor setStroke];
     boxPath.lineWidth = _borderWidth;
@@ -109,8 +131,10 @@
 
 -(void)layoutTagFrames{
     _boxFrames = [NSMutableArray new];
+    
+    CGFloat dY = CGRectGetMaxY(titleLabel.frame);
     // 上一个 tag 的 frame
-    CGRect lastFrame = CGRectMake(0, _borderInsets.top, 0, 0);
+    CGRect lastFrame = CGRectMake(0, dY+_borderInsets.top, 0, 0);
     
     for(int i=0;i<_tags.count;i++){
         
@@ -133,7 +157,7 @@
         lastFrame = frame;
     }
     
-    _intrinsicFrame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetMaxY(lastFrame)+_borderInsets.top);
+    _intrinsicFrame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetMaxY(lastFrame));
     
     self.frame = _intrinsicFrame;
     

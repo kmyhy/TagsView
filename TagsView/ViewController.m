@@ -11,7 +11,6 @@
 
 @interface ViewController ()
 @property (strong, nonatomic) TagsView *tagsView;
-@property (weak, nonatomic) IBOutlet UIView *container;
 
 @end
 
@@ -20,19 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tagsView = [[TagsView alloc]initWithFrame:CGRectMake(10, 10, 200, 10)];
+    _tagsView = [[TagsView alloc]initWithFrame:CGRectMake(10, 100, 300, 10)];
     
-    _tagsView.showDebugBorder = YES;
+//    _tagsView.showDebugBorder = YES;
     
-    _tagsView.tags=@[@"睡前故事",@"热门推荐",@"经典",@"儿童教育"];
+    _tagsView.tags=@[@"睡前故事",@"热门推荐",@"经典",@"儿童教育",@"睡前故事",@"热门推荐",@"经典",@"儿童教育"];
     
+    [self.view addSubview:_tagsView];
     
-    
-    _container.frame = CGRectMake(10, 10, _tagsView.frame.size.width+20, _tagsView.frame.size.height+20);
-    
-    [_container addSubview:_tagsView];
-    
-    NSLog(@"%f",_container.frame.size.height);
+//    NSLog(@"%f",_container.frame.size.height);
 }
 
 

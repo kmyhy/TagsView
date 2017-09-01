@@ -10,8 +10,16 @@
 
 
 IB_DESIGNABLE
-@interface TagsView : UIView
+@interface TagsView : UIView{
+    UILabel* titleLabel ;
+}
 
+/// title 相关
+@property(copy,nonatomic)NSString* title;
+@property(assign,nonatomic)UIEdgeInsets titleInsets;
+@property(strong,nonatomic)UIColor* titleColor;
+
+/// tags 相关
 @property(strong,nonatomic)NSArray<NSString*> *tags;
 @property(strong,nonatomic)IBInspectable UIColor* textColor;
 @property(assign,nonatomic)IBInspectable CGFloat fontSize;
