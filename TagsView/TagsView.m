@@ -49,7 +49,7 @@
     
     self.textInsets = UIEdgeInsetsMake(5, 6.5, 5, 6.5);
     
-    self.borderInsets = UIEdgeInsetsMake(15, 10, 0, 0);// 只用到 top，left
+    self.borderInsets = UIEdgeInsetsMake(10, 15, 0, 0);// 只用到 top，left
     
     self.cornerRadius = 4/[UIScreen mainScreen].scale;
     
@@ -94,7 +94,7 @@
     
     // 绘制文本
     NSString* tag= _tags[index];
-     NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: _fontSize], NSForegroundColorAttributeName: _textColor};
+    NSDictionary* textFontAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize: _fontSize], NSForegroundColorAttributeName: _textColor};
     
     CGRect textRect = CGRectInset(rect, _textInsets.left, _textInsets.top);
     
@@ -144,8 +144,8 @@
         
         CGFloat top = CGRectGetMinY(lastFrame);
         
-        if( left+size.width > self.frame.size.width){// 长度超过，换行
-        
+        if( left+size.width+_borderInsets.left > self.frame.size.width){// 长度超过，换行
+            
             left = _borderInsets.left;
             top += _borderInsets.top+ CGRectGetHeight(lastFrame);
         }
@@ -157,7 +157,7 @@
         lastFrame = frame;
     }
     
-    _intrinsicFrame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetMaxY(lastFrame));
+    _intrinsicFrame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetMaxY(lastFrame)+_borderInsets.top);
     
     self.frame = _intrinsicFrame;
     

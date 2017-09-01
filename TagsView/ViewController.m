@@ -21,9 +21,9 @@
     
     _tagsView = [[TagsView alloc]initWithFrame:CGRectMake(10, 100, 300, 10)];
     
-//    _tagsView.showDebugBorder = YES;
+    _tagsView.showDebugBorder = YES;
     
-    _tagsView.tags=@[@"睡前故事",@"热门推荐",@"经典",@"儿童教育",@"睡前故事",@"热门推荐",@"经典",@"儿童教育"];
+    _tagsView.tags=@[@"睡前故事",@"童话",@"经典",@"绘本",@"睡前故事",@"热门推荐",@"经典",@"儿童教育"];
     
     [self.view addSubview:_tagsView];
     
